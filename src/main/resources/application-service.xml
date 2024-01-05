@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"
+        p:location="application.properties" />
+
+    <bean name="talkbookJdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate"
+          p:dataSource-ref="talkbookDatasource"/>
+
+<!--    This config was used for learning and checking purpose. both the underlying datasource will work for jdbc templates-->
+<!--    <bean name="talkbookDatasource" class="org.springframework.jdbc.datasource.DriverManagerDataSource"-->
+<!--          p:driverClassName="com.mysql.jdbc.Driver"-->
+<!--          p:username="mamun"-->
+<!--          p:password="password"-->
+<!--          p:url="jdbc:mysql://localhost:3306/talkbook"-->
+<!--          p:loginTimeout="20000"-->
+<!--    />-->
+
+    <bean name="talkbookDatasource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="${talkbook.datasource.driver.class.name}"/>
+        <property name="url" value="${talkbook.datasource.url}"/>
+        <property name="username" value="${talkbook.datasource.username}"/>
+        <property name="password" value="${talkbook.datasource.password}"/>
+        <property name="loginTimeout" value="${talkbook.datasource.loginTimeout}"/>
+    </bean>
+
+    <bean name="userRepository" class="com.hsenid.talkbook.repository.UserRepository"
+          p:talkbookJdbcTemplate-ref="talkbookJdbcTemplate"
+    />
+
+    <bean name="userServiceImpl" class="com.hsenid.talkbook.service.serviceImpl.UserServiceImpl"
+        p:userRepository-ref="userRepository"
+    />
+
+</beans>
