@@ -1,8 +1,16 @@
 package com.hsenid.talkbook.service;
 
-import org.springframework.stereotype.Service;
+import com.hsenid.talkbook.model.User;
 
-@Service
+import java.util.List;
+
 public interface UserService {
-    public void createUser(String username, String email);
+
+    void createUser(User user);
+
+    List<User> getAllUsers();
+
+    void updateUser(User user, int userId);
+
+    void deleteUser(int userId);
 }

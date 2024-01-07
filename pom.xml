@@ -14,7 +14,9 @@
 	<name>talkbook</name>
 	<description>A social media platform to share day to day life</description>
 	<properties>
-		<java.version>17</java.version>
+		<java.version>19</java.version>
+		<maven.compiler.source>19</maven.compiler.source>
+		<maven.compiler.target>19</maven.compiler.target>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -54,6 +56,7 @@
 			<artifactId>spring-graphql-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+
 	</dependencies>
 
 	<build>
@@ -61,6 +64,15 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.8.1</version> <!-- Use a version that supports Java 19 -->
+				<configuration>
+					<source>19</source>
+					<target>19</target>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>

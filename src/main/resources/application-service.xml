@@ -23,7 +23,6 @@
         <property name="url" value="${talkbook.datasource.url}"/>
         <property name="username" value="${talkbook.datasource.username}"/>
         <property name="password" value="${talkbook.datasource.password}"/>
-        <property name="loginTimeout" value="${talkbook.datasource.loginTimeout}"/>
     </bean>
 
     <bean name="userRepository" class="com.hsenid.talkbook.repository.UserRepository"

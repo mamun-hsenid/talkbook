@@ -1,15 +1,31 @@
 package com.hsenid.talkbook.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-
-@Entity
 public class User {
-    @Id
-    private Long userId;
+
+    private int userId;
+
     private String username;
 
     private String email;
+
+    private String password;
+
+    public User() {
+    }
+    public User(int userId, String username, String email, String password) {
+        this.userId = userId;
+        this.username = username;
+        this.email = email;
+        this.password = password;
+    }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
 
     public String getUsername() {
         return username;
@@ -27,11 +43,11 @@ public class User {
         this.email = email;
     }
 
-    public Long getUserId() {
-        return userId;
+    public String getPassword() {
+        return password;
     }
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
+    public void setPassword(String password) {
+        this.password = password;
     }
 }
