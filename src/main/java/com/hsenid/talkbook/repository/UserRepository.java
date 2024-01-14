@@ -16,11 +16,10 @@ public class UserRepository {
 
     String allUserGetQuery = "select * from users";
 
-    String userUpdateQuery = "update users set password = ? where user_id = ? ";
-
     String userDeleteQuery = "delete from users where user_id = ?";
 
     public void createUser(User user){
+
         talkbookJdbcTemplate.update(userInsertQuery, new Object[]{user.getUserId(), user.getUsername(), user.getEmail(), user.getPassword()});
     }
 
@@ -30,7 +29,24 @@ public class UserRepository {
     }
 
     public void updateUser(User user, int userId) {
-        talkbookJdbcTemplate.update(userUpdateQuery, new Object[]{user.getPassword(), userId});
+        StringBuilder userUpdateQuery = new StringBuilder("update users set ");
+        userUpdateQuery = buildUserUpdateQuery(userUpdateQuery, user, userId);
+        talkbookJdbcTemplate.update(userUpdateQuery.toString());
+    }
+
+    private StringBuilder buildUserUpdateQuery(StringBuilder userUpdateQuery, User user, int userId) {
+        if(user.getUsername() != null){
+            userUpdateQuery.append("username  '").append(user.getUsername()).append("', ");
+        }
+        if(user.getEmail() != null){
+            userUpdateQuery.append("email = '").append(user.getEmail()).append("', ");
+        }
+        if(user.getPassword() != null){
+            userUpdateQuery.append("password = '").append(user.getPassword()).append("', ");
+        }
+        userUpdateQuery.delete(userUpdateQuery.length()-2, userUpdateQuery.length()).append(" where user_id = "+userId);
+
+        return userUpdateQuery;
     }
 
     public void deleteUser(int userId) {

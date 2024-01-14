@@ -2,6 +2,7 @@ package com.hsenid.talkbook.controller;
 
 import com.hsenid.talkbook.model.User;
 import com.hsenid.talkbook.service.UserService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -19,27 +20,28 @@ public class UserController {
         this.userService = userService;
     }
 
-    @RequestMapping(value = "/add/user", method = RequestMethod.POST)
-    public ResponseEntity<?> createUser(@RequestBody User user) {
+    @RequestMapping(value = "/add-user", method = RequestMethod.POST)
+    public ResponseEntity<?> createUser(@Valid @RequestBody User user) {
         userService.createUser(user);
-        return ResponseEntity.ok("User created ");
+        return ResponseEntity.ok("User created successfully");
     }
 
-    @GetMapping(value = "/users")
+    @GetMapping(value = "/get-all-users")
     public ResponseEntity<? extends List> getAllUsers() {
         List<User> users = userService.getAllUsers();
         return ResponseEntity.status(HttpStatus.OK).body(users);
     }
 
-    @PutMapping(value = "/user-update/{id}")
-    public ResponseEntity<?> updateUser(@RequestBody User user, @PathVariable int id) {
-        userService.updateUser(user, id);
-        return ResponseEntity.ok("user password updated");
+    @PutMapping(value = "/update-user/{userId}")
+    public ResponseEntity<?> updateUser(@Valid @RequestBody User user, @PathVariable int userId) {
+        user.setUserId(userId);
+        userService.updateUser(user, userId);
+        return ResponseEntity.ok(user);
     }
 
-    @RequestMapping(value = "/user-delete/{userId}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/delete-user/{userId}", method = RequestMethod.DELETE)
     public ResponseEntity<?> deleteUser(@PathVariable int userId) {
         userService.deleteUser(userId);
-        return ResponseEntity.ok("user deleted");
+        return ResponseEntity.ok("User with user_id : ["+userId+"] deleted successfully");
     }
 }

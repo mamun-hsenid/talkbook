@@ -1,12 +1,7 @@
 package com.hsenid.talkbook.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-
-@Entity
 public class UserChat {
 
-    @Id
     private Long chatId;
 
     private String user_id;

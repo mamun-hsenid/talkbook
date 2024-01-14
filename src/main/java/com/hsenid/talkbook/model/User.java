@@ -1,13 +1,28 @@
 package com.hsenid.talkbook.model;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.*;
+
+
 public class User {
 
+    @NotNull
     private int userId;
 
+    @NotNull
+    @Pattern(regexp = "^[a-zA-Z0-9_]{3,30}$", message = "Username is invalid. Enter a valid username")
     private String username;
 
+    @NotBlank
+    @Email(message = "Enter a valid email address")
     private String email;
 
+    @NotNull
+    @Size(max = 20, min = 5, message = "Password must be within 5 to 20 characters")
     private String password;
 
     public User() {
