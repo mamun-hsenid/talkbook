@@ -36,7 +36,7 @@ public class UserRepository {
 
     private StringBuilder buildUserUpdateQuery(StringBuilder userUpdateQuery, User user, int userId) {
         if(user.getUsername() != null){
-            userUpdateQuery.append("username  '").append(user.getUsername()).append("', ");
+            userUpdateQuery.append("username = '").append(user.getUsername()).append("', ");
         }
         if(user.getEmail() != null){
             userUpdateQuery.append("email = '").append(user.getEmail()).append("', ");
